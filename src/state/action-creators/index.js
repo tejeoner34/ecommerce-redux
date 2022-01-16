@@ -1,16 +1,16 @@
-export const depositMoney = (amount) =>{
+export const addToCart = (amount) =>{
     return (dispatch) => {
         dispatch({
-            type: "deposit",
+            type: "add",
             payload: amount
         })
     }
 }
 
-export const withdrawMoney = (amount) => {
+export const removeFromCart = (amount) => {
     return (dispatch) => {
         dispatch({
-            type: "withdraw",
+            type: "remove",
             payload: amount
         })
     }
