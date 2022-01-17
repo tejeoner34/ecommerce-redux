@@ -5,6 +5,7 @@ import styled from "styled-components"
  max-width: 950px;
  position: relative;
  display: flex;
+ flex-direction: column;
  justify-content: center;
 
 

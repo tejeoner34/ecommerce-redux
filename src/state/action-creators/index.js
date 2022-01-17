@@ -15,3 +15,12 @@ export const removeFromCart = (amount) => {
         })
     }
 }
+
+export const removeAllFromCart = (amount) =>{
+    return (dispatch) => {
+        dispatch({
+            type: "remove-all",
+            payload: amount
+        })
+    }
+}

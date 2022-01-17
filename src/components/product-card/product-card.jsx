@@ -23,7 +23,7 @@ const StyledButton = styled.button`
     }
     
 `
-const StyledCartNumberButton = styled.button`
+export const StyledCartNumberButton = styled.button`
     width: 30px;
     height: 30px;
     cursor: pointer;
@@ -32,19 +32,19 @@ const StyledCartNumberButton = styled.button`
 export default function ProductCard(props) {
 
 
-    const [actualCartProduct, setActualCartProduct] = useState([])
+    const [actualCartProduct, setActualCartProduct] = useState({})
     const cartAmount = useSelector((state) => state.account);
-    const [isInCart, updateIsInCart] = useState(actualCartProduct.length > 0);
+    const [isInCart, updateIsInCart] = useState(actualCartProduct?.account > 0);
 
 
     useEffect(() => {
-        const filtered = cartAmount?.filter(e => e._id === props.data._id);
+        const filtered = cartAmount?.find(e => e._id === props.data._id);
         setActualCartProduct(()=>{
-            updateIsInCart(filtered.length > 0)
+            updateIsInCart(filtered?.account > 0)
             return filtered
         });
 
-    },[cartAmount]);
+    },[cartAmount, props.data._id]);
 
     
     const dispatch = useDispatch();
@@ -58,7 +58,7 @@ export default function ProductCard(props) {
 
     const onRemoveFromCart = (e) => {
         removeFromCart(props.data);
-        if (actualCartProduct.length < 1) {
+        if (actualCartProduct.account < 1) {
             updateIsInCart(false)
         }
     }
@@ -79,7 +79,7 @@ export default function ProductCard(props) {
                 isInCart ?
                     <div style={{ display: 'flex', alignItems: 'center', gap: '.5rem' }}>
                         <StyledCartNumberButton onClick={onRemoveFromCart}>-</StyledCartNumberButton>
-                        <p>{actualCartProduct.length ?? 0}</p>
+                        <p>{actualCartProduct?.account ?? 0}</p>
                         <StyledCartNumberButton onClick={onAddToCart}>+</StyledCartNumberButton>
                     </div>
                     :

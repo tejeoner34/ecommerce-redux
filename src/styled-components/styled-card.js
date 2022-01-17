@@ -4,7 +4,6 @@ export const StyledCard = styled.div`
 background-color: #edf3f3;
 width: 200px;
 height: 250px;
-border-radius: 5px;
 display: flex;
 flex-direction: column;
 align-items: center ;
