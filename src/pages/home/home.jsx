@@ -4,6 +4,7 @@ import { StyledAside } from "../../styled-components/index.js";
 import { useState } from "react";
 import styled from "styled-components";
 import ProductCard from "../../components/product-card/product-card.jsx";
+import Pagination from "../../components/pagination/pagination.jsx";
 
 const StyledHome = styled.div`
     display: flex;
@@ -79,6 +80,8 @@ export default function Home() {
     const [products, setProducts] = useState([])
     const [originalProducts, setOriginalProducts] = useState([])
     const [filterOn, setFilterOn] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [postsPerPage] = useState(10);
 
 
     useEffect(() => {
@@ -106,6 +109,10 @@ export default function Home() {
 
     const handleFilterClose = () =>{
         setFilterOn(false)
+    }
+
+    const paginate = (pageNumber)=>{
+        setCurrentPage(pageNumber)
     }
 
     return (
@@ -162,6 +169,7 @@ export default function Home() {
                     {products && products.map((e,i)=> <ProductCard data={e} onFilter={handleFilter} key={i}></ProductCard> )}
 
                 </StyledCardsContainer>
+                <Pagination postPerPage={postsPerPage} totalPosts={products.length} paginate={paginate}  />
             </StyledHome>
 
         </>
