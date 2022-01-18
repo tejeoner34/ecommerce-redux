@@ -10,6 +10,7 @@ const StyledHome = styled.div`
     display: flex;
     gap: 1rem;
     justify-content: space-between;
+    margin-bottom: 1rem;
 
     @media (max-width:620px){
             &{
@@ -18,8 +19,13 @@ const StyledHome = styled.div`
             }
         }
 `
+const StyledCardsAndPaginationContainer = styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+`
 const StyledCardsContainer = styled.div`
-    width: 70%;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
@@ -75,43 +81,47 @@ const StyledMobileFilter = styled.button`
 
 export default function Home() {
 
-    
+
 
     const [products, setProducts] = useState([])
     const [originalProducts, setOriginalProducts] = useState([])
     const [filterOn, setFilterOn] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
-    const [postsPerPage] = useState(10);
+    const [postsPerPage] = useState(9);
 
 
     useEffect(() => {
         fetch(`${serverUrl}products/`)
             .then(r => r.json())
             .then(d => {
-                setProducts(oldvalue=> oldvalue.concat(d))
-                setOriginalProducts(oldvalue=> oldvalue.concat(d))
+                setProducts(oldvalue => oldvalue.concat(d))
+                setOriginalProducts(oldvalue => oldvalue.concat(d))
             })
-    },[]);
+    }, []);
 
-    const handleFilter = (e)=>{
+    const handleFilter = (e) => {
         const value = e.target.innerText;
-        if(value === 'All'){
+        if (value === 'All') {
             setProducts(originalProducts)
-        }else{
-            const filtered = originalProducts.filter(e=> e.type === value.toLowerCase());
+        } else {
+            const filtered = originalProducts.filter(e => e.type === value.toLowerCase());
             setProducts(filtered)
         }
     }
 
-    const handleFilterDisplay = ()=>{
+    const handleFilterDisplay = () => {
         setFilterOn(!filterOn)
     }
 
-    const handleFilterClose = () =>{
+    const handleFilterClose = () => {
         setFilterOn(false)
     }
 
-    const paginate = (pageNumber)=>{
+    const indexOfLastPost = currentPage * postsPerPage;
+    const indexOfFirstPost = indexOfLastPost - postsPerPage;
+    const currentPosts = products.slice(indexOfFirstPost, indexOfLastPost)
+
+    const paginate = (pageNumber) => {
         setCurrentPage(pageNumber)
     }
 
@@ -120,37 +130,38 @@ export default function Home() {
             <StyledHome>
                 <StyledMobileFilter onClick={handleFilterDisplay}>Filter</StyledMobileFilter>
                 {
-                    filterOn?
-                    <StyledAsideMobile>
-                        <ul>
-                            <StyledLi onClick={(e)=>{
-                                handleFilter(e);
-                                handleFilterClose();
-                            }}>All</StyledLi>
-                            <StyledLi onClick={(e)=>{
-                                handleFilter(e);
-                                handleFilterClose();
-                            }}>Fruit</StyledLi>
-                            <StyledLi onClick={(e)=>{
-                                handleFilter(e);
-                                handleFilterClose();
-                            }}>Vegetable</StyledLi>
-                            <StyledLi onClick={(e)=>{
-                                handleFilter(e);
-                                handleFilterClose();
-                            }}>Bakery</StyledLi>
-                            <StyledLi onClick={(e)=>{
-                                handleFilter(e);
-                                handleFilterClose();
-                            }}>Dairy</StyledLi>
-                            <StyledLi onClick={(e)=>{
-                                handleFilter(e);
-                                handleFilterClose();
-                            }}>Meat</StyledLi>
-                        </ul>
-                    </StyledAsideMobile>
-                    :
-                    null
+                    filterOn ?
+                        <StyledAsideMobile>
+                            <ul>
+                                <StyledLi onClick={(e) => {
+                                    handleFilter(e);
+                                    handleFilterClose();
+                                    setCurrentPage(1);
+                                }}>All</StyledLi>
+                                <StyledLi onClick={(e) => {
+                                    handleFilter(e);
+                                    handleFilterClose();
+                                }}>Fruit</StyledLi>
+                                <StyledLi onClick={(e) => {
+                                    handleFilter(e);
+                                    handleFilterClose();
+                                }}>Vegetable</StyledLi>
+                                <StyledLi onClick={(e) => {
+                                    handleFilter(e);
+                                    handleFilterClose();
+                                }}>Bakery</StyledLi>
+                                <StyledLi onClick={(e) => {
+                                    handleFilter(e);
+                                    handleFilterClose();
+                                }}>Dairy</StyledLi>
+                                <StyledLi onClick={(e) => {
+                                    handleFilter(e);
+                                    handleFilterClose();
+                                }}>Meat</StyledLi>
+                            </ul>
+                        </StyledAsideMobile>
+                        :
+                        null
                 }
                 <StyledAside>
                     <h3>Filter</h3>
@@ -165,11 +176,12 @@ export default function Home() {
                         </ul>
                     </nav>
                 </StyledAside>
-                <StyledCardsContainer>
-                    {products && products.map((e,i)=> <ProductCard data={e} onFilter={handleFilter} key={i}></ProductCard> )}
-
-                </StyledCardsContainer>
-                <Pagination postPerPage={postsPerPage} totalPosts={products.length} paginate={paginate}  />
+                <StyledCardsAndPaginationContainer>
+                    <StyledCardsContainer>
+                        {products && currentPosts.map((e, i) => <ProductCard data={e} onFilter={handleFilter} key={i}></ProductCard>)}
+                    </StyledCardsContainer>
+                    <Pagination postPerPage={postsPerPage} totalPosts={products.length} currentPage={currentPage} paginate={paginate} />
+                </StyledCardsAndPaginationContainer>
             </StyledHome>
 
         </>

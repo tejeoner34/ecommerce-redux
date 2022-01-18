@@ -9,10 +9,10 @@ function App() {
 
   return (
     <>
-      <BrowserRouter>
+      <BrowserRouter basename="/ecommerce-redux">
         <Header />
         <StyledMain>
-        <Switch>
+        <Switch >
           
           <Route path='/cart'>
             <CartPage />
