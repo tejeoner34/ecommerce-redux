@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/ecommerce-redux/static/css/main.c578142b.css",
+    "main.js": "/ecommerce-redux/static/js/main.acaedd97.js",
+    "static/js/787.9ef11203.chunk.js": "/ecommerce-redux/static/js/787.9ef11203.chunk.js",
+    "index.html": "/ecommerce-redux/index.html",
+    "main.c578142b.css.map": "/ecommerce-redux/static/css/main.c578142b.css.map",
+    "main.acaedd97.js.map": "/ecommerce-redux/static/js/main.acaedd97.js.map",
+    "787.9ef11203.chunk.js.map": "/ecommerce-redux/static/js/787.9ef11203.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c578142b.css",
+    "static/js/main.acaedd97.js"
+  ]
+}
