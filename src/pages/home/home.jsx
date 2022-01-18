@@ -5,6 +5,9 @@ import { useState } from "react";
 import styled from "styled-components";
 import ProductCard from "../../components/product-card/product-card.jsx";
 import Pagination from "../../components/pagination/pagination.jsx";
+import { Box } from "@mui/material";
+import CircularProgress from '@mui/material/CircularProgress';
+
 
 const StyledHome = styled.div`
     display: flex;
@@ -88,6 +91,7 @@ export default function Home() {
     const [filterOn, setFilterOn] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [postsPerPage] = useState(9);
+    const [isLoading, setIsLoading] = useState(true);
 
 
     useEffect(() => {
@@ -96,6 +100,7 @@ export default function Home() {
             .then(d => {
                 setProducts(oldvalue => oldvalue.concat(d))
                 setOriginalProducts(oldvalue => oldvalue.concat(d))
+                setIsLoading(false);
             })
     }, []);
 
@@ -180,7 +185,15 @@ export default function Home() {
                 </StyledAside>
                 <StyledCardsAndPaginationContainer>
                     <StyledCardsContainer>
-                        {products && currentPosts.map((e, i) => <ProductCard data={e} onFilter={handleFilter} key={i}></ProductCard>)}
+                        {
+                            isLoading ?
+                                <Box sx={{ display: 'flex' }}>
+                                    <CircularProgress />
+                                </Box>
+                                :
+                                products && currentPosts.map((e, i) => <ProductCard data={e} onFilter={handleFilter} key={i}></ProductCard>)
+                        }
+                        
                     </StyledCardsContainer>
                     <Pagination postPerPage={postsPerPage} totalPosts={products.length} currentPage={currentPage} paginate={paginate} />
                 </StyledCardsAndPaginationContainer>
