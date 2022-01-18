@@ -102,15 +102,17 @@ export default function Home() {
     const handleFilter = (e) => {
         const value = e.target.innerText;
         if (value === 'All') {
-            setProducts(originalProducts)
+            setProducts(originalProducts);
+            setCurrentPage(1);
         } else {
             const filtered = originalProducts.filter(e => e.type === value.toLowerCase());
-            setProducts(filtered)
+            setProducts(filtered);
+            setCurrentPage(1);
         }
     }
 
     const handleFilterDisplay = () => {
-        setFilterOn(!filterOn)
+        setFilterOn(!filterOn);
     }
 
     const handleFilterClose = () => {

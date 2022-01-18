@@ -1,1 +1,1 @@
-export const serverUrl = 'http://localhost:4567/'
+export const serverUrl = 'https://ecommerce-redux-project.herokuapp.com/'

@@ -10,7 +10,7 @@ import styled from "styled-components"
 const StyledItemCard = styled.div`
     position: relative;
     width: 80%;
-    height: 150px;
+    height: 170px;
     -webkit-box-shadow: 0px 6px 11px -2px rgba(0,0,0,0.46); 
     box-shadow: 0px 6px 11px -2px rgba(0,0,0,0.46);
     display: flex;
@@ -46,7 +46,7 @@ export default function InCartItem(props) {
         setActualCartProduct(() => {
             return filtered
         });
-    }, [cartAmount]);
+    }, [cartAmount,props.data._id]);
 
     const onAddToCart = (e) => {
         addToCart(actualCartProduct)
@@ -63,7 +63,7 @@ export default function InCartItem(props) {
 
     return (
         <StyledItemCard>
-            <div>
+            <div style={{maxWidth:'260px'}}>
                 <h2>{props.data.title}</h2>
                 <p style={{opacity:".7"}}>{props.data.description}</p>
                 <p>{props.data.price.toFixed(2)}€</p>

@@ -19,6 +19,7 @@ const StyledPaginationLi = styled.li`
     height: 30px;
     line-height: 25px;
     text-align: center;
+    border-radius: 5px;
 
 `
 const StyledPaginationLiSelected = styled.li`
@@ -30,6 +31,7 @@ const StyledPaginationLiSelected = styled.li`
     height: 30px;
     line-height: 25px;
     text-align: center;
+    border-radius: 5px;
 
 `
 

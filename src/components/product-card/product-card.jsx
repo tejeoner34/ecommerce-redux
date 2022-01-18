@@ -9,7 +9,8 @@ import { useEffect } from "react";
 
 
 const StyledButton = styled.button`
-    background-color: #00c3ff;
+    background-color: rgb(45 55 58);
+    color: white;
     border: none;
     border-bottom: 1px solid blue;
     width: 80%;
