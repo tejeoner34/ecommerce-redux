@@ -12,7 +12,6 @@ export default function Header(){
     
     const cartAmount = useSelector((state)=>state.account);
     const [amount, setAmount] = useState(0);
-    console.log(cartAmount)
 
     useEffect(()=>{
         let counter= 0;

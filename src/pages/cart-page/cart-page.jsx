@@ -20,7 +20,6 @@ const StyledCartPage = styled.div`
 export default function CartPage(){
 
     const cart = useSelector((state)=>state.account);
-    console.log(cart)
 
     return(
         <StyledCartPage>
